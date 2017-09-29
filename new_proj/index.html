@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+
+<!-- Mozilla dependency error fix-->
+<meta charset="utf-8"/>
+<html>
+	<head>
+		<title>Custom Youtube Search Engine</title>
+		
+		<link rel="stylesheet" href="CSS/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+		<script src="JS/script.js"></script>
+
+	</head>
+	<body>
+		<div id = "container">
+			<header>
+				<h1>Search<span>Youtube</span></h1>
+				<p>Custom Youtube Search Engine</p>
+			</header>
+
+			<section>
+				<form id = "search-form" name = "search-form" onsubmit = "return search()">
+					<div class = "fieldcontainer">
+						<input type = "search" id = "query" class = "search-field" placeholder = "Search Youtube">
+						<input type = "submit" name = "search-btn" id = "search-btn" value = "">
+					</div>
+				</form>
+				
+				<ul id = "results"></ul>
+				<div id = "buttons"></div>
+			</section>
+
+			<footer>
+				<p>Copyright &copy; 2017, All Rights Reserved</p>
+			</footer>
+
+		</div>
+	</body>
+</html>
