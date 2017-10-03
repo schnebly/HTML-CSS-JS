@@ -179,6 +179,7 @@ function getOutput(item){
 	// Build Output String
 	var output = '<li>' +
 	'<div class="list-left">' +
+	'<a href="http://www.youtube.com/embed/'+videoId+'">' +
 	'<img src="'+thumb+'">' +
 	'</div>' +
 	'<div class="list-right">' +
