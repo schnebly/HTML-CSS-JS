@@ -71,11 +71,104 @@ function search()
 	);
 }
 
+// Next Page Function
+function nextPage(){
+	
+	var token = $('#next-button').data('token');
+	var q = $('#next-button').data('query');
+	
+		//clear Results
+	$('#results').html("");
+	$('#buttons').html("");
+
+	//get form input
+	q = $('#query').val();
+
+	//Run GET request on API
+	$.get(
+		'https://www.googleapis.com/youtube/v3/search', {
+			part: 'snippet, id',
+			q: q,
+			pageToken: token,
+			type: 'video',
+			key: 'AIzaSyA-iBDNZF1CnQc-z8KA5-aqCGyIaykJuB8'},
+		function(data){
+			var nextPageToken = data.nextPageToken;
+			var prevPageToken = data.prevPageToken;
+
+			//Log Data
+			console.log(data);
+
+			$.each(data.items, function(i, item){
+				//Get Output
+				var output = getOutput(item);
+
+				//Display Results
+				$('#results').append(output);
+			});
+			
+			var buttons = getButtons(prevPageToken, nextPageToken);
+			
+			//display buttons
+			$('#buttons').append(buttons);
+		}
+
+	);
+}
+
+// Prev Page
+function prevPage(){
+	
+	var token = $('#prev-button').data('token');
+	var q = $('#prev-button').data('query');
+	
+		//clear Results
+	$('#results').html("");
+	$('#buttons').html("");
+
+	//get form input
+	q = $('#query').val();
+
+	//Run GET request on API
+	$.get(
+		'https://www.googleapis.com/youtube/v3/search', {
+			part: 'snippet, id',
+			q: q,
+			pageToken: token,
+			type: 'video',
+			key: 'AIzaSyA-iBDNZF1CnQc-z8KA5-aqCGyIaykJuB8'},
+		function(data){
+			var nextPageToken = data.nextPageToken;
+			var prevPageToken = data.prevPageToken;
+
+			//Log Data
+			console.log(data);
+
+			$.each(data.items, function(i, item){
+				//Get Output
+				var output = getOutput(item);
+
+				//Display Results
+				$('#results').append(output);
+			});
+			
+			var buttons = getButtons(prevPageToken, nextPageToken);
+			
+			//display buttons
+			$('#buttons').append(buttons);
+		}
+
+	);
+}
+
+
+
+
 //Build Output
 function getOutput(item){
 
 	
-	var videoId = item.id.vidioId;
+	var videoId = item.id.videoId;
 	var title = item.snippet.title;
 	var description = item.snippet.description;
 	var thumb = item.snippet.thumbnails.high.url;
@@ -83,18 +176,18 @@ function getOutput(item){
 	var videoDate = item.snippet.publishedAt;
 
 	
-	//Build Output String
-	var output = '<li>' + 
-	'<div class = "list-left">' + 
-	'<img src = "'+thumb+'">' + 
-	'</div>' + 
-	'<div class = "list-right">' + 
-	'<h3>'+title+'</h3>' +
-	'<small>By <span class = "cTitle">' +channelTitle+'</span> on '+videoDate+'</small>' + 
-	'<p>'+description+'</p>' + 
+	// Build Output String
+	var output = '<li>' +
+	'<div class="list-left">' +
+	'<img src="'+thumb+'">' +
 	'</div>' +
-	'</li>' + 
-	'<div class = "clearfix"></div>' + 
+	'<div class="list-right">' +
+	'<h3><a class="fancybox fancybox.iframe" href="http://www.youtube.com/embed/'+videoId+'">'+title+'</a></h3>' +
+	'<small>By <span class="cTitle">'+channelTitle+'</span> on '+videoDate+'</small>' +
+	'<p>'+description+'</p>' +
+	'</div>' +
+	'</li>' +
+	'<div class="clearfix"></div>' +
 	'';
 
 	return output;
@@ -109,8 +202,8 @@ function getButtons(prevPageToken, nextPageToken){
 	}
 	else{
 		var btnoutput = '<div class= "button-container">' + 
-		'<button id = "next-button" class = "paging-button" data-token = "'+prevPageToken+'" data-query="'+q+'"' + 
-		'onclick = "prevPage();">Prev Page</button>'
+		'<button id = "prev-button" class = "paging-button" data-token = "'+prevPageToken+'" data-query="'+q+'"' + 
+		'onclick = "prevPage();">Prev Page</button>' +
 		'<button id = "next-button" class = "paging-button" data-token = "'+nextPageToken+'" data-query="'+q+'"' + 
 		'onclick = "nextPage();">Next Page</button></div>';
 	}

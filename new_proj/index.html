@@ -7,16 +7,22 @@
 		<title>Custom Youtube Search Engine</title>
 		
 		<link rel="stylesheet" href="CSS/style.css">
+		<link rel="stylesheet" href="CSS/jquery.fancybox.css">
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
 		<script src="JS/script.js"></script>
-
+		<script src="JS/jquery.fancybox.pack.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".fancybox").fancybox();
+			});
+		</script>
 	</head>
 	<body>
 		<div id = "container">
 			<header>
-				<h1>Search<span>Youtube</span></h1>
-				<p>Custom Youtube Search Engine</p>
+				<h1><a href = "index.html">Search<span>Youtube</span></a></h1>
+				<p>Custom Ad-Free Youtube Search Engine</p>
 			</header>
 
 			<section>
